@@ -3,7 +3,7 @@
 #Autor: Adrian Ledesma Bello
 #Link: https://www.canalhacker.com
 
-## Usage: ./ssh_bruteforce_proxy.py.py <Victim ip> 22 queloco pass.txt proxies.txt
+## Usage: ./ssh_bruteforce_proxy.py.py <Victim ip> 22 root pass.txt proxies.txt
 
 import sys
 import paramiko
