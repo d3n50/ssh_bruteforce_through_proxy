@@ -7,7 +7,7 @@
 
 import sys
 import paramiko
-import warings
+import warnings
 import os
 import socket
 import socks
