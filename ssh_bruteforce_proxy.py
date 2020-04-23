@@ -33,9 +33,8 @@ def request(proxy, p_proxy, password):
 	    client.load_system_host_keys()
 	    client.set_missing_host_key_policy(paramiko.WarningPolicy)
 	    client.connect(hostname, port=port, username=username, password=password, timeout=10)
-	    stdin, stdout, stderr = ssh.exec_command('ls -la')
 	    print ">>>>>>>>>>>>>>>>  Success: " + password
-	    ssh.close()
+	    client.close()
 	    exit()
 	except Exception as e:
 	   if 'Authentication failed.' in e:
