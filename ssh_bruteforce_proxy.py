@@ -26,7 +26,6 @@ def request(proxy, p_proxy, password):
             client.set_missing_host_key_policy(paramiko.WarningPolicy)
             client.connect(hostname, port=port, username=username, password=password, timeout=10)
             print "Success"
-            v = 0
         except Exception as e:
            if 'Authentication failed.' in e:
                 print "Failed"
