@@ -1,8 +1,9 @@
-ssh-bruteforce-throug-proxy
-
 #!/usr/bin/env python
 
-## Usage: ./joder.py <Victim ip> 22 queloco pass.txt proxies.txt
+#Autor: Adrian Ledesma Bello
+#Link: https://www.canalhacker.com
+
+## Usage: ./ssh_bruteforce_proxy.py.py <Victim ip> 22 queloco pass.txt proxies.txt
 
 import sys
 import paramiko
