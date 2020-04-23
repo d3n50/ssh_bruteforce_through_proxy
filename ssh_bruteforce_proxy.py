@@ -17,7 +17,7 @@ import time
 def request(proxy, p_proxy, password):
 
 ########################## Use the proxy
-        socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxy, p_proxy)
+        socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxy, p_proxy) ### Change proxy time
         socket.socket = socks.socksocket
 ###########################
 
