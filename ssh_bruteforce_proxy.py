@@ -15,6 +15,8 @@ import urllib2
 import threading
 import time
 
+os.popen('echo > .done.txt; echo > .no_done.txt')
+
 def request(proxy, p_proxy, password):
 
 ########################## Use the proxy
@@ -104,10 +106,8 @@ for pos in range(0,int(leng_pass)):
         script = "cat .done.txt| wc -l"
         d = int(os.popen(script).read())
 
-        print "CHECK RESULT"
         r = d - n - rr
         rr = rr + r
-        print str(r) + " Diferencia"
 
         if r < 0 or int(os.popen('cat .ch').read()) == 1:
             print "CHANGING PROXY"
