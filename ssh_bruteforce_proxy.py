@@ -79,7 +79,7 @@ leng_proxy = os.popen(script).read() #### Get number of proxies
 proxy_file = open(sys.argv[5])
 lines_proxy = proxy_file.readlines()
 proxy_pos = 0
-
+rr = 0
 
 for pos in range(0,int(leng_pass)):
 
